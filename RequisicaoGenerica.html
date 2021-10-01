@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <title>FORM BOOTSTRAP JQUERY</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.1/jquery.mask.min.js"
+        integrity="sha512-uSufjCPl431IStkmDKHrTC8+FKvh+8YE4p4D0AdFkUjAGaJTOvj9T6JloO0Jv0ToWZq+I9QuA/lnxR0pcdI2Yw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="script.js">
+
+        const BASE_URL = 'https://someEndPoint/api'
+        function callBackFunction(response) {
+            console.log('response', response);
+            if (response.success) {
+                alert(response.data);
+            } else {
+                alert(response.data);
+            }
+        }
+
+        function sendRequestByForm(form, method, url, callBack) {
+            var data = arryaToObject($(form).serializeArray());
+            var response = ajaxCallRequest(method, url, data, callBack);
+        }
+
+        function arryaToObject(array) {
+            var data = {};
+
+            $.each(array,
+                function (i, v) {
+                    data[v.name] = v.value;
+                });
+
+            return data;
+        }
+
+        function ajaxCallRequest(f_method, f_url, f_data, callBack) {
+            $.ajax({
+                url: BASE_URL + f_url,
+                type: f_method,
+                contentType: 'application/json; charset=UTF-8',
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify(f_data),
+                success: function (data) {
+                    callBack({
+                        success: true,
+                        data: data
+                    })
+                },
+                error: function (data) {
+                    callBack({
+                        success: false,
+                        data: data
+                    });
+                }
+            });
+        }
+
+    </script>
+
+    <style>
+        .card {
+            margin: 0 auto; /* Added */
+            float: none; /* Added */
+            margin-bottom: 10px; /* Added */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card col-6">
+
+        <div class="card-header">
+            FORMULÁRIO
+        </div>
+
+        <div class='card-body'>
+
+            <form class="form-link" name="form-link"
+                onsubmit='return sendRequestByForm(this, "method", `url`, callBackFunction)'>
+
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" class="form-control input-link" aria-describedby="inputGroupPrepend2"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="documento">Documento</label>
+                    <input type="text" name="documento" class="form-control input-link documento"
+                        aria-describedby="inputGroupPrepend2" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="form-control input-link"
+                        aria-describedby="inputGroupPrepend2 emailHelp" required>
+                </div>
+                <div class="form-group">
+                    <label for="numero">Número</label>
+                    <input type="text" name="numero" class="form-control input-link numero"
+                        aria-describedby="inputGroupPrepend2" required>
+                </div>
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="submit" style="float: right;" class="btn btn-primary submit-link">Send Request</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
