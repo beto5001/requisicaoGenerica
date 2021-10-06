@@ -21,6 +21,16 @@
 
     <script src="script.js">
 
+
+        $(document).ready(function () {
+            CarregarCobrancas();
+
+            $(".form-link").on('submit', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            });
+        });
+
         const BASE_URL = 'https://someEndPoint/api'
         function callBackFunction(response) {
             console.log('response', response);
@@ -74,9 +84,12 @@
 
     <style>
         .card {
-            margin: 0 auto; /* Added */
-            float: none; /* Added */
-            margin-bottom: 10px; /* Added */
+            margin: 0 auto;
+            /* Added */
+            float: none;
+            /* Added */
+            margin-bottom: 10px;
+            /* Added */
         }
     </style>
 </head>
