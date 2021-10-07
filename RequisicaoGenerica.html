@@ -123,9 +123,9 @@
                         aria-describedby="inputGroupPrepend2 emailHelp" required>
                 </div>
                 <div class="form-group">
-                    <label for="numero">Número</label>
+                    <label for="numero">Telefone</label>
                     <input type="text" name="numero" class="form-control input-link numero"
-                        aria-describedby="inputGroupPrepend2" required>
+                        aria-describedby="inputGroupPrepend2" pattern="[\(]\d{2}[\)]+[ ]\d{5}[\-]\d{4}" required>
                 </div>
 
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
